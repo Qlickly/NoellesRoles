@@ -56,7 +56,7 @@ public abstract class InstinctMixin {
         }
         if (target instanceof PlayerEntity) {
             if (gameWorldComponent.isRole(MinecraftClient.getInstance().player, Noellesroles.EXECUTIONER)) {
-                ExecutionerPlayerComponent executionerPlayerComponent = (ExecutionerPlayerComponent) ExecutionerPlayerComponent.KEY.get((PlayerEntity) target);
+                ExecutionerPlayerComponent executionerPlayerComponent = (ExecutionerPlayerComponent) ExecutionerPlayerComponent.KEY.get((PlayerEntity) MinecraftClient.getInstance().player);
                 if (executionerPlayerComponent.target.equals(target.getUuid())) {
                     cir.setReturnValue(Color.YELLOW.getRGB());
                     cir.cancel();

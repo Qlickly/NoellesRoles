@@ -125,6 +125,7 @@ public class Noellesroles implements ModInitializer {
             abilityPlayerComponent.cooldown = NoellesRolesConfig.HANDLER.instance().generalCooldownTicks;
             if (role.equals(EXECUTIONER)) {
                 ExecutionerPlayerComponent executionerPlayerComponent = (ExecutionerPlayerComponent) ExecutionerPlayerComponent.KEY.get(player);
+                executionerPlayerComponent.won = false;
                 List<UUID> innocentPlayers = new ArrayList<>();
                 gameWorldComponent.getRoles().forEach((uuid,role1)->{
                     if (role1.isInnocent()) {
