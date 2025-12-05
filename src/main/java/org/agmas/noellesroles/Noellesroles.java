@@ -4,6 +4,7 @@ import dev.doctor4t.trainmurdermystery.api.Role;
 import dev.doctor4t.trainmurdermystery.api.TMMRoles;
 import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
 import dev.doctor4t.trainmurdermystery.cca.PlayerMoodComponent;
+import dev.doctor4t.trainmurdermystery.cca.PlayerShopComponent;
 import dev.doctor4t.trainmurdermystery.client.gui.RoleAnnouncementTexts;
 import dev.doctor4t.trainmurdermystery.entity.PlayerBodyEntity;
 import dev.doctor4t.trainmurdermystery.event.AllowPlayerDeath;
@@ -36,6 +37,7 @@ import org.agmas.noellesroles.morphling.MorphlingPlayerComponent;
 import org.agmas.noellesroles.packet.AbilityC2SPacket;
 import org.agmas.noellesroles.packet.MorphC2SPacket;
 import org.agmas.noellesroles.packet.SwapperC2SPacket;
+import org.agmas.noellesroles.recaller.RecallerPlayerComponent;
 import org.agmas.noellesroles.voodoo.VoodooPlayerComponent;
 
 import java.awt.*;
@@ -59,11 +61,12 @@ public class Noellesroles implements ModInitializer {
     public static Identifier VOODOO_ID = Identifier.of(MOD_ID, "voodoo");
     public static Identifier TRAPPER_ID = Identifier.of(MOD_ID, "trapper");
     public static Identifier CORONER_ID = Identifier.of(MOD_ID, "coroner");
+    public static Identifier RECALLER_ID = Identifier.of(MOD_ID, "recaller");
     public static Identifier EXECUTIONER_ID = Identifier.of(MOD_ID, "executioner");
     public static Identifier THE_INSANE_DAMNED_PARANOID_KILLER_OF_DOOM_DEATH_DESTRUCTION_AND_WAFFLES_ID = Identifier.of(MOD_ID, "the_insane_damned_paranoid_killer");
 
     public static HashMap<Role, RoleAnnouncementTexts.RoleAnnouncementText> roleRoleAnnouncementTextHashMap = new HashMap<>();
-    public static Role JESTER = TMMRoles.registerRole(new Role(JESTER_ID,new Color(255,86,243).getRGB() ,false,false, Role.MoodType.FAKE,Integer.MAX_VALUE,false));
+    public static Role JESTER = TMMRoles.registerRole(new Role(JESTER_ID,new Color(255,86,243).getRGB() ,false,false, Role.MoodType.FAKE,Integer.MAX_VALUE,true));
     public static Role MORPHLING =TMMRoles.registerRole(new Role(MORPHLING_ID, new Color(170, 2, 61).getRGB(),false,true, Role.MoodType.FAKE,Integer.MAX_VALUE,true));
     public static Role CONDUCTOR =TMMRoles.registerRole(new Role(CONDUCTOR_ID, new Color(255, 205, 84).getRGB(),true,false, Role.MoodType.REAL,TMMRoles.CIVILIAN.getMaxSprintTime(),false));
     public static Role AWESOME_BINGLUS = TMMRoles.registerRole(new Role(AWESOME_BINGLUS_ID, new Color(155, 255, 168).getRGB(),true,false, Role.MoodType.REAL,TMMRoles.CIVILIAN.getMaxSprintTime(),false));
@@ -79,6 +82,7 @@ public class Noellesroles implements ModInitializer {
     public static Role CORONER =TMMRoles.registerRole(new Role(CORONER_ID, new Color(122, 122, 122).getRGB(),true,false,Role.MoodType.REAL, TMMRoles.CIVILIAN.getMaxSprintTime(),false));
 
     public static Role EXECUTIONER =TMMRoles.registerRole(new Role(EXECUTIONER_ID, new Color(74, 27, 5).getRGB(),false,false,Role.MoodType.REAL, TMMRoles.CIVILIAN.getMaxSprintTime(),true));
+    public static Role RECALLER = TMMRoles.registerRole(new Role(RECALLER_ID, new Color(158, 255, 255).getRGB(),true,false,Role.MoodType.REAL, TMMRoles.CIVILIAN.getMaxSprintTime(),false));
 
     public static final CustomPayload.Id<MorphC2SPacket> MORPH_PACKET = MorphC2SPacket.ID;
     public static final CustomPayload.Id<SwapperC2SPacket> SWAP_PACKET = SwapperC2SPacket.ID;
@@ -116,13 +120,6 @@ public class Noellesroles implements ModInitializer {
 
 
     public void registerEvents() {
-        ServerTickEvents.START_SERVER_TICK.register((server)->{
-            if (server.getPlayerManager().getCurrentPlayerCount() < 12) {
-                Harpymodloader.setRoleMaximum(EXECUTIONER_ID,0);
-            } else {
-                Harpymodloader.setRoleMaximum(EXECUTIONER_ID,1);
-            }
-        });
         AllowPlayerDeath.EVENT.register(((playerEntity, identifier) -> {
             if (identifier == GameConstants.DeathReasons.FELL_OUT_OF_TRAIN) return true;
             BartenderPlayerComponent bartenderPlayerComponent = BartenderPlayerComponent.KEY.get(playerEntity);
@@ -245,6 +242,19 @@ public class Noellesroles implements ModInitializer {
         ServerPlayNetworking.registerGlobalReceiver(Noellesroles.ABILITY_PACKET, (payload, context) -> {
             AbilityPlayerComponent abilityPlayerComponent = (AbilityPlayerComponent) AbilityPlayerComponent.KEY.get(context.player());
             GameWorldComponent gameWorldComponent = (GameWorldComponent) GameWorldComponent.KEY.get(context.player().getWorld());
+            if (gameWorldComponent.isRole(context.player(), RECALLER) && abilityPlayerComponent.cooldown <= 0) {
+                RecallerPlayerComponent recallerPlayerComponent = RecallerPlayerComponent.KEY.get(context.player());
+                PlayerShopComponent playerShopComponent = PlayerShopComponent.KEY.get(context.player());
+                if (!recallerPlayerComponent.placed) {
+                    abilityPlayerComponent.cooldown = GameConstants.getInTicks(0,10);
+                    recallerPlayerComponent.setPosition();
+                }
+                if (playerShopComponent.balance >= 100) {
+                    abilityPlayerComponent.cooldown = GameConstants.getInTicks(0,30);
+                    recallerPlayerComponent.teleport();
+                }
+
+            }
             if (gameWorldComponent.isRole(context.player(), PHANTOM) && abilityPlayerComponent.cooldown <= 0) {
                 context.player().addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 30 * 20,0,true,false,true));
                 abilityPlayerComponent.cooldown = GameConstants.getInTicks(1, 30);

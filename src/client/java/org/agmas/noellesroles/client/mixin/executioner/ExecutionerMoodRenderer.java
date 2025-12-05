@@ -31,7 +31,6 @@ public class ExecutionerMoodRenderer {
     @Shadow public static Random random;
     @Unique private static final Identifier EXECUTIONER_MOOD = Identifier.of(Noellesroles.MOD_ID, "hud/mood_executioner");
 
-    // Probbably not the best way to do this, but better than a redirect
     @Inject(method = "renderCivilian", at = @At("HEAD"), cancellable = true)
     private static void executionerMood(TextRenderer textRenderer, DrawContext context, float prevMood, CallbackInfo ci) {
         GameWorldComponent gameWorldComponent = (GameWorldComponent) GameWorldComponent.KEY.get(MinecraftClient.getInstance().player.getWorld());

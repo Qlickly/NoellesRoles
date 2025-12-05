@@ -11,6 +11,7 @@
     "morphling.MorphlingRoleNameRendererMixin",
     "morphling.MorphlingScreenMixin",
     "phantom.PhantomHudMixin",
+    "recaller.RecallerHudMixin",
     "swapper.SwapperScreenMixin",
     "voodoo.VoodoScreenMixin"
   ],
@@ -21,7 +22,7 @@
     "requireAnnotations": true
   },
   "mixins": [
-    "bartender.BartenderStoreRendererMixin",
+    "StoreRendererMixin",
     "bartender.DefenseVialViewMixin",
     "executioner.ExecutionerHudMixin",
     "executioner.ExecutionerMoodRenderer",

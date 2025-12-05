@@ -33,6 +33,8 @@ public abstract class BartenderPlayerShopComponentMixin {
 
     @Shadow @Final private PlayerEntity player;
 
+    @Shadow public abstract void sync();
+
     @Inject(method = "tryBuy", at = @At("HEAD"), cancellable = true)
     void b(int index, CallbackInfo ci) {
         GameWorldComponent gameWorldComponent = GameWorldComponent.KEY.get(player.getWorld());
@@ -40,6 +42,7 @@ public abstract class BartenderPlayerShopComponentMixin {
             if (index == 0) {
                 if (balance >= 100) {
                     this.balance -= 100;
+                    sync();
                     player.giveItemStack(ModItems.DEFENSE_VIAL.getDefaultStack());
                     PlayerEntity var6 = this.player;
                     if (var6 instanceof ServerPlayerEntity) {

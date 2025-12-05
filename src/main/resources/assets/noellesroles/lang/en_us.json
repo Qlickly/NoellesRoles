@@ -56,6 +56,11 @@
   "announcement.role.trapper": "Trapper",
   "announcement.win.trapper": "Passengers Win!",
 
+  "announcement.goals.recaller": "Teleport to anywhere on the train!",
+  "announcement.role.recaller": "Recaller",
+  "announcement.win.recaller": "Passengers Win!",
+
+
 
   "item.noellesroles.fake_revolver": "Fake Revolver",
   "item.noellesroles.master_key": "Master Key",
@@ -70,5 +75,11 @@
   "death_reason.trainmurdermystery.grenade": "an explosion!",
   "death_reason.trainmurdermystery.poison": "poison!",
   "death_reason.trainmurdermystery.fell_out_of_train": "being ran over.",
-  "death_reason.noellesroles.voodoo": "voodoo magic."
+  "death_reason.noellesroles.voodoo": "voodoo magic.",
+
+  "tip.phantom": "Use %s to go invisible!",
+  "tip.recaller.place": "Use %s to save your location!",
+  "tip.recaller.teleport": "Use %s to teleport!",
+  "tip.recaller.not_enough_money": "100\uE781 required to teleport.",
+  "tip.noellesroles.cooldown": "Ability usable in %ss"
 }

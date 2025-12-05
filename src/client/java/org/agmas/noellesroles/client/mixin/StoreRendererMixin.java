@@ -1,33 +1,21 @@
-package org.agmas.noellesroles.client.mixin.bartender;
+package org.agmas.noellesroles.client.mixin;
 
 import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
 import dev.doctor4t.trainmurdermystery.cca.PlayerShopComponent;
 import dev.doctor4t.trainmurdermystery.client.gui.StoreRenderer;
-import dev.doctor4t.trainmurdermystery.client.gui.screen.ingame.LimitedHandledScreen;
-import dev.doctor4t.trainmurdermystery.client.gui.screen.ingame.LimitedInventoryScreen;
-import dev.doctor4t.trainmurdermystery.util.ShopEntry;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.screen.PlayerScreenHandler;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.MathHelper;
-import org.agmas.noellesroles.ModItems;
 import org.agmas.noellesroles.Noellesroles;
-import org.jetbrains.annotations.NotNull;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Mixin(StoreRenderer.class)
-public abstract class BartenderStoreRendererMixin {
+public abstract class StoreRendererMixin {
 
     @Shadow public static StoreRenderer.MoneyNumberRenderer view;
 
@@ -35,7 +23,8 @@ public abstract class BartenderStoreRendererMixin {
 
     @Inject(method = "renderHud", at = @At("HEAD"))
     private static void b(TextRenderer renderer,ClientPlayerEntity player, DrawContext context, float delta, CallbackInfo ci) {
-        if (((GameWorldComponent)GameWorldComponent.KEY.get(player.getWorld())).isRole(player.getUuid(), Noellesroles.BARTENDER)) {
+        if (((GameWorldComponent)GameWorldComponent.KEY.get(player.getWorld())).isRole(player.getUuid(), Noellesroles.BARTENDER)
+        || ((GameWorldComponent)GameWorldComponent.KEY.get(player.getWorld())).isRole(player.getUuid(), Noellesroles.RECALLER)) {
             int balance = ((PlayerShopComponent)PlayerShopComponent.KEY.get(player)).balance;
             if (view.getTarget() != (float)balance) {
                 offsetDelta = (float)balance > view.getTarget() ? 0.6F : -0.6F;

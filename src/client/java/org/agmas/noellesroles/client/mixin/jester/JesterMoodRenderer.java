@@ -39,7 +39,6 @@ public class JesterMoodRenderer {
     @Shadow public static Random random;
     @Unique private static final Identifier JESTER_MOOD = Identifier.of(Noellesroles.MOD_ID, "hud/mood_jester");
 
-    // Probbably not the best way to do this, but better than a redirect
     @Inject(method = "renderKiller", at = @At("HEAD"), cancellable = true)
     private static void jesterMood(TextRenderer textRenderer, DrawContext context, CallbackInfo ci) {
         GameWorldComponent gameWorldComponent = (GameWorldComponent) GameWorldComponent.KEY.get(MinecraftClient.getInstance().player.getWorld());
