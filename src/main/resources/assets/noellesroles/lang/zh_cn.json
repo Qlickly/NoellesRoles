@@ -56,7 +56,7 @@
 
   "announcement.goals.vulture": "吃掉足够的尸体后变成杀手",
   "announcement.role.vulture": "秃鹫",
-  "hud.vulture.eat": "按下 %s 键来吃掉尸体",
+  "hud.vulture.eat": "按下 %s 键来啃食尸体",
   "hud.vulture.already_consumed": "这具尸体已经被啃食干净了",
 
 
@@ -87,4 +87,5 @@
   "tip.master_key_invisible": "万能钥匙显示为撬锁器"
 
 }
+
 
