@@ -1,4 +1,6 @@
 {
+  "key.noellesroles.ability": "能力",
+  
   "announcement.goals.jester": "找到杀手并与其合作取得胜利!",
   "announcement.role.jester": "弄臣",
 
@@ -50,9 +52,6 @@
 
   "announcement.goals.recaller": "传送至保存的位置!",
   "announcement.role.recaller": "回溯者",
-  
-  "announcement.goals.guesser": "猜对目标乘客的身份将使其直接倒地身亡!",
-  "announcement.role.guesser": "猜测者",
 
   "announcement.goals.mimic": "杀手会误以为你是同伙，这正是你的完美计划!",
   "announcement.role.mimic": "模仿者",
@@ -98,4 +97,3 @@
   "tip.master_key_invisible_count": "乘客人数少于 %s 人时，万能钥匙显示为撬锁器",
   "tip.master_key_invisible": "万能钥匙显示为撬锁器"
 }
-
