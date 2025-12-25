@@ -55,7 +55,7 @@
   "announcement.role.noellesroles.guesser": "猜测者",
 
   "announcement.goals.noellesroles.mimic": "杀手会误以为你是同伙，这正是你的完美计划",
-  "announcement.role.noellesroles.mimic": "模仿者",
+  "announcement.role.noellesroles.mimic": "卧底",
 
   "announcement.modifier.noellesroles.tiny": "矮人",
   "announcement.modifier.noellesroles.chameleon": "变色龙",
@@ -107,4 +107,5 @@
 
   "subtitles.noellesroles.role_mine_beep": "陷阱发出了哔哔声"
 }
+
 
