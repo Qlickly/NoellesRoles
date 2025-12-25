@@ -92,7 +92,7 @@
   "death_reason.wathe.poison": "中毒而亡",
   "death_reason.wathe.fell_out_of_train": "被列车碾死",
   "death_reason.noellesroles.voodoo": "巫毒魔法",
-  "death_reason.noellesroles.modded_backfire": "被左轮炸膛反噬",
+  "death_reason.noellesroles.modded_backfire": "因愧疚而自杀",
 
   "tip.phantom": "按下 %s 键来隐身",
   "tip.recaller.place": "按下 %s 键来保存你的位置",
@@ -107,5 +107,6 @@
 
   "subtitles.noellesroles.role_mine_beep": "陷阱发出了哔哔声"
 }
+
 
 
